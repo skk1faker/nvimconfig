@@ -13,3 +13,4 @@ return {
     server.setup(opts)
   end,
 }
+-- cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 生成项目配置文件的json

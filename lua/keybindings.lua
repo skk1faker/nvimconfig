@@ -11,6 +11,7 @@ local opt = {noremap = true, silent = true }
 --t Terminal 模式
 --c Command 模式
 -- leader 设置为空格
+-- 命令行模式链接两条命令的方法使用 command 1 |command 2
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -41,6 +42,10 @@ map("n", "<C-Down>", ":resize +2<CR>", opt)
 map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
+
+-- 切换工作目录，当前工作目录使用pwd可以查看
+map("n","<F2>", ":cd %:h | pwd<CR>", opt)   -- 切换vim工作目录
+map("n","<F3>", ":lcd %:h | pwd<CR>", opt)  -- 切换窗口工作目录
 
 -- Terminal相关
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
@@ -74,8 +79,11 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 --map("n", "Q", ":qa!<CR>", opt)
 
 -- insert 模式下，跳到行首行尾
-map("i", "<C-h>", "<ESC>I", opt)
-map("i", "<C-l>", "<ESC>A", opt)
+map("i", "<C-h>", "<ESC>gea", opt)
+map("i", "<C-l>", "<ESC>ea", opt)
+
+--map("i", "<C-h>", "<Left>", opt)
+--map("i", "<C-l>", "<Right>", opt)
 map("i", "<C-k>", "<Up>", opt)
 map("i", "<C-j>", "<Down>", opt)
 
@@ -83,15 +91,20 @@ map("i", "<C-j>", "<Down>", opt)
 map("n", "]b", ":bnext<CR>",opt)
 map("n", "[b", ":bprevious<CR>",opt)
 
+-- 检查编译效果
+map("i", "<C-b>", "<ESC>a",opt)
 -- 编译行为
 --map("n","<F8>",":!g++ % -g && ./a.out<input <CR>",opt)
 --map("n","<F9>",":!gdb -q a.out <CR>",opt)
 --function _G.debug()
+
+
 vim.api.nvim_exec(
 [[
 map <F9> :call Rungdb() <CR>
 func! Rungdb()
 	exec  " w "
+  exec  "lcd %:h"
 	if &filetype == "c"
 		exec  " !gcc % -g -o %< "
 		exec  " !gdb -q ./%< "
@@ -105,11 +118,12 @@ map <F8> :call CompileRunGcc() <CR>
 func! CompileRunGcc()
 	exec  " w "
 	exec  "!date"
+  "exec  "lcd %:h"
 	if  &filetype ==  'c'
 		exec  " !gcc % -o %< "
 		exec  " ! ./%< "
 	elseif &filetype ==  'cpp'
-		exec  "!g++ % && ./a.out < input"
+		exec  "!g++ % -g -o %:h/a.out && %:h/a.out < %:h/input"
 	elseif &filetype ==  'java'  
 		exec  " !javac % "  
 		exec  " !java %< "
@@ -132,10 +146,19 @@ map("n", "<C-l>", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
 -- map("n", "<C-w>", ":Bdelete!<CR>", opt)
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
+--map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
+--map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
+--map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 
+-- Telescope
+-- 查找文件
+map("n", "<C-f>", ":Telescope find_files<CR>", opt) -- 表示的是在当前文件夹下查找一个文件名为。。。
+-- 全局搜索
+map("n", "<C-g>", ":Telescope live_grep<CR>", opt) -- 可以通过文件内容进行查找
+
+-- blameline
+map("n", "<leader>b", ":ToggleBlameLine<CR>",opt)
+map("n", "<leader>sb", ":SingleBlameLine<CR>",opt)
 
 local pluginKeys = {}
 pluginKeys.mapLSP = function(mapbuf)
@@ -163,6 +186,25 @@ pluginKeys.mapLSP = function(mapbuf)
   -- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
 end
 
+-- Telescope 列表中 插入模式快捷键
+pluginKeys.telescopeList = {
+  i = {
+    -- 上下移动
+    ["<C-j>"] = "move_selection_next",
+    ["<C-k>"] = "move_selection_previous",
+    ["<Down>"] = "move_selection_next",
+    ["<Up>"] = "move_selection_previous",
+    -- 历史记录
+    ["<C-n>"] = "cycle_history_next",
+    ["<C-p>"] = "cycle_history_prev",
+    -- 关闭窗口
+    ["<C-c>"] = "close",
+    -- 预览窗口上下滚动
+    ["<C-b>"] = "preview_scrolling_up",
+    ["<C-d>"] = "preview_scrolling_down",
+  },
+}
+
 -- nvim-tree
 -- alt + m 键打开关闭tree
 map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
@@ -186,6 +228,74 @@ pluginKeys.nvimTreeList = {
   { key = "p", action = "paste" },
   { key = "s", action = "system_open" },
 }
+-- nvim-cmp 自动补全
+pluginKeys.cmp = function(cmp)
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
+
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+  return {
+    -- 出现补全
+    ["<C-n>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
+    -- 取消
+    ["<C-p>"] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close()
+    }),
+    -- 上一个
+    --["<C-k>"] = cmp.mapping.select_prev_item(),
+    -- 下一个
+    --["<C-j>"] = cmp.mapping.select_next_item(),
+    -- 确认 不要使用回车
+    ["<CR>"] = cmp.mapping.confirm({
+      select = true,
+      behavior = cmp.ConfirmBehavior.Replace
+    }),
+    -- 如果窗口内容太多，可以滚动
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i", "c"}),
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i", "c"}),
+        -- 自定义代码段跳转到下一个参数
+--    ["<S-Down>"] = cmp.mapping(function(_)
+--      if vim.fn["vsnip#available"](1) == 1 then
+--        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+--      end
+--    end, {"i", "s"}),
+--
+--    -- 自定义代码段跳转到上一个参数
+--    ["<S-Up>"] = cmp.mapping(function()
+--      if vim.fn["vsnip#jumpable"](-1) == 1 then
+--        feedkey("<Plug>(vsnip-jump-prev)", "")
+--      end
+--    end, {"i", "s"}),
+
+    -- Super Tab
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, {"i", "s"}),
+
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, {"i", "s"})
+    -- end of super Tab
+  }
+end
+
 return pluginKeys
 
 

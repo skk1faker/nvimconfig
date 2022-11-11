@@ -10,7 +10,7 @@ nvim_tree.setup({
     git = {
         enable = true,
     },
-    -- project plugin 需要这样设置
+    -- project plugin 需要这样设置 
     update_cwd = true,
     update_focused_file = {
         enable = true,

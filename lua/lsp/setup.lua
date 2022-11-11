@@ -1,3 +1,6 @@
+-- https://github.com/neovim/nvim-lspconfig
+-- 看quick-start可以知道如何开启一个lsp服务器
+-- 网页下面也有一些教程，
 
 local status, mason = pcall(require, "mason")
 if not status then
@@ -46,7 +49,11 @@ local servers = {
   sumneko_lua = require("lsp.config.lua"),
   clangd = require("lsp.config.clangd")
 }
-
+--clangd 如何管理c++项目
+--需要使用cmake生成compile_command.json，命令如下
+-- cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+-- 或者在cmake中加入set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+--https://blog.csdn.net/weixin_43862847/article/details/119274382
 
 
 for name, config in pairs(servers) do
