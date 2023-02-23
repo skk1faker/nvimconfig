@@ -7,7 +7,7 @@ require("keybindings")
 -- 主题设置 （新增）
 require("colorscheme")
 -- 插件配置
-require("plugin-config.nvim-tree")  -- 侧边树目录
+require("plugin-config.nvim-tree") -- 侧边树目录
 require("plugin-config.bufferline") -- buffer 显示栏
 require("plugin-config.lualine")
 require("plugin-config.telescope")
@@ -17,6 +17,12 @@ require("plugin-config.dashboard")
 --:lua print(require("project_nvim.utils.path").historyfile) 就可以看到 project_history 文件的路径了
 require("plugin-config.nvim-treesitter")
 require("plugin-config.blameline")
-require("plugin-config.todo")
+require("plugin-config.winshift")
+require("plugin-config.markdown_preview")
+--require("plugin-config.todo") -- 编辑的时候另起一行然后<C-c>会报错
 require("lsp.setup")
 require("lsp.cmp")
+-- require("lsp.null-ls")
+require("lsp.formatter")
+require("endsetting")
+vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})

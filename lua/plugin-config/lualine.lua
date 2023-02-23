@@ -7,11 +7,12 @@ end
 
 lualine.setup({
   options = {
-    theme = "gruvbox",
+    theme = "gruvbox_dark",
     component_separators = { left = "|", right = "|" },
     -- https://github.com/ryanoasis/powerline-extra-symbols
-    section_separators = { left = " ", right = "" },
+    --section_separators = { left = " ", right = "" },
     -- section_separators = { left = "\E0B4", right = "\E0B6" },
+    section_separators = { left = "", right = "" },
   },
   extensions = { "nvim-tree", "toggleterm" },
   sections = {

@@ -114,10 +114,20 @@ _G.packer_plugins = {
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
     url = "https://github.com/glepnir/dashboard-nvim"
   },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/formatter.nvim",
+    url = "https://github.com/mhartington/formatter.nvim"
+  },
   ["gruvbox.nvim"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
     url = "https://github.com/ellisonleao/gruvbox.nvim"
+  },
+  ["img-paste.vim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/img-paste.vim",
+    url = "https://github.com/img-paste-devs/img-paste.vim"
   },
   ["lualine-lsp-progress"] = {
     loaded = true,
@@ -133,6 +143,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/lush.nvim",
     url = "https://github.com/rktjmp/lush.nvim"
+  },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
+    url = "https://github.com/iamcco/markdown-preview.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -168,6 +183,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -209,35 +229,40 @@ _G.packer_plugins = {
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["project.nvim"] = {
-    loaded = true,
-    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/project.nvim",
-    url = "https://github.com/ahmedkhalf/project.nvim"
-  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["todo.nvim"] = {
-    loaded = true,
-    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/todo.nvim",
-    url = "https://github.com/AmeerTaweel/todo.nvim"
   },
   ["tokyonight.nvim"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  ["vim-arsync"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/vim-arsync",
+    url = "https://github.com/kenn7/vim-arsync"
+  },
   ["vim-bbye"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/vim-bbye",
     url = "https://github.com/moll/vim-bbye"
   },
+  ["vim-translator"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/vim-translator",
+    url = "https://github.com/voldikss/vim-translator"
+  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/vim-vsnip",
     url = "https://github.com/hrsh7th/vim-vsnip"
+  },
+  ["winshift.nvim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/winshift.nvim",
+    url = "https://github.com/sindrets/winshift.nvim"
   }
 }
 

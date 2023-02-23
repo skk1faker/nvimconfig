@@ -1,3 +1,5 @@
+-- 如果使用中出现配置的问题，可以使用checkheath检查一下lsp服务器的配置问题
+-- lsp日志存在于/home/skt1faker/.local/state/nvim/lsp.log，如果lsp服务器出了问题可以取其中查看。
 -- https://github.com/neovim/nvim-lspconfig
 -- 看quick-start可以知道如何开启一个lsp服务器
 -- 网页下面也有一些教程，
@@ -36,7 +38,8 @@ mason_config.setup({
   -- 确保安装，根据需要填写
   ensure_installed = {
     "clangd",
-    "sumneko_lua"
+    "sumneko_lua",
+    "pyright"
   },
 })
 
@@ -47,13 +50,17 @@ mason_config.setup({
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
   sumneko_lua = require("lsp.config.lua"),
-  clangd = require("lsp.config.clangd")
+  clangd = require("lsp.config.clangd"),
+  pyright = require("lsp.config.pyright"),
+
 }
 --clangd 如何管理c++项目
 --需要使用cmake生成compile_command.json，命令如下
 -- cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 -- 或者在cmake中加入set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 --https://blog.csdn.net/weixin_43862847/article/details/119274382
+--只有makefile可以使用bear make生成compile_command.json
+--https://edward852.github.io/post/%E7%94%9F%E6%88%90compile_commands.json%E6%96%87%E4%BB%B6/
 
 
 for name, config in pairs(servers) do
@@ -65,5 +72,5 @@ for name, config in pairs(servers) do
     lspconfig[name].setup({})
   end
 end
-
+--require("lspconfig").pyright.setup{}
 -- require("lsp.ui")

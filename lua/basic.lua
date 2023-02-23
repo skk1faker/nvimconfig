@@ -1,3 +1,4 @@
+-- transport
 -- utf8
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = 'utf-8'
@@ -9,18 +10,20 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 -- 高亮所在行
 vim.wo.cursorline = true
+-- 高亮所在列
+-- vim.wo.cursorcolumn = true
 -- 显示左侧图标指示列
 vim.wo.signcolumn = "yes"
 -- 右侧参考线，超过表示代码太长了，考虑换行
 vim.wo.colorcolumn = "80"
 -- 缩进2个空格等于一个Tab
-vim.o.tabstop = 3
-vim.bo.tabstop = 3
-vim.o.softtabstop = 3
+vim.o.tabstop = 2
+vim.bo.tabstop = 2
+vim.o.softtabstop = 2
 vim.o.shiftround = true
 -- >> << 时移动长度
-vim.o.shiftwidth = 3
-vim.bo.shiftwidth = 3
+vim.o.shiftwidth = 2
+vim.bo.shiftwidth = 2
 -- 空格替代tab
 vim.o.expandtab = true
 vim.bo.expandtab = true
@@ -54,19 +57,19 @@ vim.o.writebackup = false
 vim.o.swapfile = true
 -- smaller updatetime
 vim.o.updatetime = 300
--- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置
-vim.o.timeoutlen = 500
+-- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置 -- 像我这样的年轻人100ms就够了，我承认，我不行。。。。300ms
+vim.o.timeoutlen = 300
 -- split window 从下边和右边出现
 vim.o.splitbelow = true
 vim.o.splitright = true
 -- 自动补全不自动选中
 vim.g.completeopt = "menu,menuone,noselect,noinsert"
 -- 样式
-vim.o.background = "light"
+vim.o.background = "dark"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
 -- 不可见字符的显示，这里只把空格显示为一个点
-vim.o.list = true
+vim.o.list = false
 vim.o.listchars = "space:·"
 -- 补全增强
 vim.o.wildmenu = true
@@ -77,20 +80,40 @@ vim.o.pumheight = 10
 -- 永远显示 tabline
 vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
-vim.o.showmode = false
+vim.o.showmode = true
 --vim.o.path = vim.o.path + \/home\/skt1faker\/my_procedure
 --vim.o.path="/home/skt1faker/Github/**"
 --print(vim.o.path)
 --print(string.format("%s%s,",vim.o.path,"/home/skt1faker/my_procedure/**"))
-vim.o.path = string.format("%s,%s", vim.o.path, "/home/skt1faker/my_procedure/**")
-vim.o.path = string.format("%s,%s", vim.o.path, "/home/skt1faker/Github/**")
-
-
--- display TODO
-vim.cmd(
-[[
-"https://www.easck.com/cos/2022/0616/971378.shtml
-    " Highlight TODO, FIXME, NOTE, etc.
-autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
-autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
-]])
+-- vim.o.path = string.format("%s,%s", vim.o.path, "/home/skt1faker/my_procedure/**")
+-- path设置
+vim.o.path = string.format("%s,%s", vim.o.path, "./**") -- 当前文件夹和子文件夹下的文件
+vim.o.suffixesadd = ".c++"
+vim.o.suffixesadd = string.format("%s,%s",vim.o.suffixesadd, ".py")
+vim.o.suffixesadd = string.format("%s,%s",vim.o.suffixesadd, ".md")
+vim.o.tags = "/home/skt1faker/my_procedure/opensource/miniob2022/tags"
+-- make行为
+vim.o.makeprg = "make"
+-- vim.o.path = string.format("%s,%s", vim.o.path, "/home/skt1faker/Github/**")
+-- 如何修改
+-- https://stackoverflow.com/questions/67579351/how-to-set-my-nvim-cursor-as-a-vertical-line-in-insert-mode
+vim.o.guicursor = "i-ci-n-v-c-sm:block,ve:ver25,r-cr-o:hor20"
+--https://www.cnblogs.com/welkinwalker/archive/2011/05/30/2063587.html
+--～/document/vim折叠设置.pdf
+vim.o.foldmethod="syntax"
+--manual           手工定义折叠
+--indent             更多的缩进表示更高级别的折叠
+--expr                用表达式来定义折叠
+--syntax             用语法高亮来定义折叠
+--diff                  对没有更改的文本进行折叠
+--marker            对文中的标志折叠
+--"zi 打开关闭折叠
+--"zv 查看此行
+--zm 关闭折叠
+--zM 关闭所有
+--zr 打开
+--zR 打开所有
+--zc 折叠当前行
+--zo 打开当前折叠
+--zd 删除折叠
+--zD 删除所有折叠
