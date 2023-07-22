@@ -31,9 +31,13 @@ packer.startup(function(use)
 	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("arkav/lualine-lsp-progress")
 	-- telescope （新增）
-	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    -- or                            , branch = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
 	-- dashboard-nvim (新增)
-	use("glepnir/dashboard-nvim")
+	-- use("glepnir/dashboard-nvim")
 	-- project
 	-- use("ahmedkhalf/project.nvim")
 	-- treesitter （新增）
@@ -56,35 +60,41 @@ packer.startup(function(use)
 
 	-- 常见编程语言代码段
 	-- use("rafamadriz/friendly-snippets")
-	use("tveskag/nvim-blame-line")
-	use("kenn7/vim-arsync")
-
---./.vim-arsync 配置文件
---remote_host    10.68.12.145
---remote_user    cuiqing
---remote_port    22
---remote_path   /home/cuiqing/swints/wangxinpeng/zhenghaowen
---local_path      /home/skt1faker/rm/cq
---ignore_path     ["rm","mm","wprofess_needresult","result_dir","split_pic","empty","split.py"]   
---ignore_dotfiles 1
---auto_sync_up    1
---remote_or_local remote
---sleep_before_sync 0
---
---# 如果ignore_path没有需要不访问的地址的话，这里就写为[]就行,否则写为["relative path"]
---
---# remote_user username to connect with
---# remote_passwd password to connect with (requires sshpass) (needed if not using ssh-keys)
---# remote_port remote ssh port to connect to (default is 22)
---# local_path local folder to be synced (defaults to folder of .vim-arsync)
---# ignore_path list of ingored files/folders
---# ignore_dotfiles set to 1 to not sync dotfiles (e.g. .vim-arsync)
---# auto_sync_up set to 1 for activating automatic upload syncing on file save
---# remote_or_local set to 'local' if you want to perform syncing localy
---# sleep_before_sync set to x seconds if you want to sleep before sync(like compiling a file before syncing)    
---# remote_host remote host to connect (must have ssh enabled)
---# remote_path remote folder to be synced
-
+	 use("tveskag/nvim-blame-line")
+  use {
+  'lewis6991/gitsigns.nvim',
+  -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+  }
+  use {'kenn7/vim-arsync',
+      requires = {
+          {'prabirshrestha/async.vim'}
+      }
+  }
+	--./.vim-arsync 配置文件
+	--remote_host    10.68.12.145
+	--remote_user    cuiqing
+	--remote_port    22
+	--remote_path   /home/cuiqing/swints/wangxinpeng/zhenghaowen
+	--local_path      /home/skt1faker/rm/cq
+	--ignore_path     ["rm","mm","wprofess_needresult","result_dir","split_pic","empty","split.py"]
+	--ignore_dotfiles 1
+	--auto_sync_up    1
+	--remote_or_local remote
+	--sleep_before_sync 0
+	--
+	--# 如果ignore_path没有需要不访问的地址的话，这里就写为[]就行,否则写为["relative path"]
+	--
+	--# remote_user username to connect with
+	--# remote_passwd password to connect with (requires sshpass) (needed if not using ssh-keys)
+	--# remote_port remote ssh port to connect to (default is 22)
+	--# local_path local folder to be synced (defaults to folder of .vim-arsync)
+	--# ignore_path list of ingored files/folders
+	--# ignore_dotfiles set to 1 to not sync dotfiles (e.g. .vim-arsync)
+	--# auto_sync_up set to 1 for activating automatic upload syncing on file save
+	--# remote_or_local set to 'local' if you want to perform syncing localy
+	--# sleep_before_sync set to x seconds if you want to sleep before sync(like compiling a file before syncing)
+	--# remote_host remote host to connect (must have ssh enabled)
+	--# remote_path remote folder to be synced
 
 	use("mfussenegger/nvim-dap")
 	use("sindrets/winshift.nvim")
@@ -119,18 +129,33 @@ packer.startup(function(use)
 		end,
 	})
 
---	use({
---		"iamcco/markdown-preview.nvim",
---		run = "cd app && npm install",
---		setup = function()
---			vim.g.mkdp_filetypes = { "markdown" }
---		end,
---		ft = { "markdown" },
---	})
-  use("img-paste-devs/img-paste.vim")
-  use("voldikss/vim-translator")
+	--	use({
+	--		"iamcco/markdown-preview.nvim",
+	--		run = "cd app && npm install",
+	--		setup = function()
+	--			vim.g.mkdp_filetypes = { "markdown" }
+	--		end,
+	--		ft = { "markdown" },
+	--	})
+	use("img-paste-devs/img-paste.vim")
+	use("voldikss/vim-translator")
+
+	-- Packer
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("chatgpt").setup({
+				-- optional configuration
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 end)
-  
+
 -- 每次保存 plugins.lua 自动安装插件
 
 pcall(

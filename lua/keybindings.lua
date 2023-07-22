@@ -117,20 +117,23 @@ map("i", "<C-b>", "<ESC>a", opt)
 
 -- 禁止shift上下键在插入模式下翻页
 vim.cmd([[
-imap <S-Down> <ESC>a
-imap <S-Up> <ESC>a
+map <S-Down> <Nop>
+map <S-Up> <Nop>
+imap <S-Down> <Nop>
+imap <S-Up> <Nop>
 ]])
 -- 编译行为
 --map("n","<F8>",":!g++ % -g && ./a.out<input <CR>",opt)
 --map("n","<F9>",":!gdb -q a.out <CR>",opt)
 --function _G.debug()
 map("n", "<F10>", ":!cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1<CR>", opt)
+    -- exec " !g++  -fsanitize=address % -g  && %< "
 vim.api.nvim_exec(
 	[[
 map <F9> :call Rungdb() <CR>
   func! Rungdb()
     exec " w "
-    exec " !g++ % -g -o %< && %< < input "
+    exec " !g++  -fsanitize=address % -g  && %:h/a.out "
   endfunc
 
 ""func! Rungdb()
@@ -154,7 +157,8 @@ func! CompileRunGcc()
 		exec  " !gcc % -g   "
 		exec  " ! %:h/a.out < %:h/input"
 	elseif &filetype ==  'cpp'
-		exec  "!g++ % -g -pthread -lpthread -o %:h/a.out && %:h/a.out < %:h/input"
+		exec  "!g++  -fsanitize=address % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
+  "exec "!g++ % /home/skt1faker/my_procedure/opensource/leveldb/build/libleveldb.a  -I /home/skt1faker/my_procedure/opensource/leveldb/build/include -lpthread -g && %:h/a.out"
 	elseif &filetype ==  'java'  
 		exec  " !javac % "  
 		exec  " !java %< "
@@ -326,7 +330,7 @@ pluginKeys.cmp = function(cmp)
 		-- 下一个
 		["<S-Down>"] = cmp.mapping.select_next_item(),
 		-- 确认 不要使用回车
-		["<CR>"] = cmp.mapping.confirm({
+		["<S-CR>"] = cmp.mapping.confirm({
 			select = true,
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),

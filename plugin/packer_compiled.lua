@@ -74,6 +74,17 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["ChatGPT.nvim"] = {
+    config = { "\27LJ\2\0029\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\fchatgpt\frequire\0" },
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/ChatGPT.nvim",
+    url = "https://github.com/jackMort/ChatGPT.nvim"
+  },
+  ["async.vim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/async.vim",
+    url = "https://github.com/prabirshrestha/async.vim"
+  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
@@ -109,15 +120,15 @@ _G.packer_plugins = {
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
-  ["dashboard-nvim"] = {
-    loaded = true,
-    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
-    url = "https://github.com/glepnir/dashboard-nvim"
-  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/formatter.nvim",
     url = "https://github.com/mhartington/formatter.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["gruvbox.nvim"] = {
     loaded = true,
@@ -173,6 +184,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/nord.nvim",
     url = "https://github.com/shaunsingh/nord.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/skt1faker/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-blame-line"] = {
     loaded = true,
@@ -267,6 +283,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: ChatGPT.nvim
+time([[Config for ChatGPT.nvim]], true)
+try_loadstring("\27LJ\2\0029\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\fchatgpt\frequire\0", "config", "ChatGPT.nvim")
+time([[Config for ChatGPT.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

@@ -69,8 +69,10 @@ vim.o.background = "dark"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
 -- 不可见字符的显示，这里只把空格显示为一个点
-vim.o.list = false
-vim.o.listchars = "space:·"
+vim.o.list = true
+-- vim.o.listchars = "space:·"
+-- vim.o.listchars = "eol:$,tab:>-|,space:_"
+vim.o.listchars = "eol:$,tab:>-|,space:_"
 -- 补全增强
 vim.o.wildmenu = true
 -- Dont' pass messages to |ins-completin menu|
@@ -117,3 +119,75 @@ vim.o.foldmethod="syntax"
 --zo 打开当前折叠
 --zd 删除折叠
 --zD 删除所有折叠
+
+vim.cmd([[
+" 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
+autocmd BufNewFile *.[ch],*.hpp,*.cpp,Makefile,*.mk,*.sh exec ":call SetTitle()" 
+" 加入注释 
+func SetComment()
+    call setline(1,"/*================================================================") 
+    call append(line("."),   "*   Copyright (C) ".strftime("%Y")." Wangxinpeng. All rights reserved.")
+    call append(line(".")+1, "*   ") 
+    call append(line(".")+2, "*   filename：    ".expand("%:t")) 
+    call append(line(".")+3, "*   username:     skt1faker")
+    call append(line(".")+4, "*   create time:  ".strftime("%H:%M  %Y.%m.%d")) 
+    call append(line(".")+5, "    email:        skk1faker@163.com")
+    call append(line(".")+6, "*   descripe:     ") 
+    call append(line(".")+7, "*")
+    call append(line(".")+8, "================================================================*/") 
+    call append(line(".")+9, "")
+endfunc
+" 加入shell,Makefile注释
+func SetComment_sh()
+    call setline(3, "#================================================================") 
+    call setline(4, "#   Copyright (C) ".strftime("%Y")." Sangfor Ltd. All rights reserved.")
+    call setline(5, "#   ") 
+    call setline(6, "#   文件名称：".expand("%:t")) 
+    call setline(7, "#   创 建 者：LuZhenrong")
+    call setline(8, "#   创建日期：".strftime("%Y年%m月%d日")) 
+    call setline(9, "#   描    述：") 
+    call setline(10, "#")
+    call setline(11, "#================================================================")
+    call setline(12, "")
+    call setline(13, "")
+endfunc 
+" 定义函数SetTitle，自动插入文件头 
+func SetTitle()
+    if &filetype == 'make' 
+        call setline(1,"") 
+        call setline(2,"")
+        call SetComment_sh()
+ 
+    elseif &filetype == 'sh' 
+        call setline(1,"#!/system/bin/sh") 
+        call setline(2,"")
+        call SetComment_sh()
+        
+    else
+         call SetComment()
+         if expand("%:e") == 'hpp' 
+          call append(line(".")+10, "#ifndef _".toupper(expand("%:t:r"))."_H") 
+          call append(line(".")+11, "#define _".toupper(expand("%:t:r"))."_H") 
+          call append(line(".")+12, "#ifdef __cplusplus") 
+          call append(line(".")+13, "extern \"C\"") 
+          call append(line(".")+14, "{") 
+          call append(line(".")+15, "#endif") 
+          call append(line(".")+16, "") 
+          call append(line(".")+17, "#ifdef __cplusplus") 
+          call append(line(".")+18, "}") 
+          call append(line(".")+19, "#endif") 
+          call append(line(".")+20, "#endif //".toupper(expand("%:t:r"))."_H") 
+ 
+         elseif expand("%:e") == 'h' 
+          call append(line(".")+10, "#pragma once") 
+         elseif &filetype == 'c' 
+          call append(line(".")+10,"#include \"".expand("%:t:r").".h\"") 
+         "elseif &filetype == 'cpp' 
+         elseif expand("%:e") == 'cpp' 
+          call append(line(".")+10, "#include<bits/stdc++.h>")
+          call append(line(".")+11, "using namespace std;")
+          call append(line(".")+12, "#define ll long long")
+         endif
+    endif
+endfunc
+  ]])

@@ -23,11 +23,11 @@ db.custom_center = {
 	--    action = "Telescope oldfiles",
 	--  },
 
-	{
-		icon = "  ",
-		desc = "black page                          ",
-		action = "bd",
-	},
+--	{
+--		icon = "  ",
+--		desc = "black page                          ",
+--		action = "bd",
+--	},
 	{
 		icon = "  ",
 		desc = "Edit keybindings                    ",
