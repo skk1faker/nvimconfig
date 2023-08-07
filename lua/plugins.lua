@@ -24,7 +24,7 @@ packer.startup(function(use)
 	-- catppuccin
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	-- nvim-tree (新增)
-	use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
+	--use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
 	-- bufferline (新增)
 	use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
 	-- lualine (新增)

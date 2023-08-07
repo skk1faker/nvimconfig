@@ -53,6 +53,7 @@ map("n", "s=", "<C-w>=", opt)
 -- 切换工作目录，当前工作目录使用pwd可以查看
 map("n", "<F2>", ":cd %:h | pwd<CR>", opt) -- 切换vim工作目录
 map("n", "<F3>", ":Explore %:h <CR>", opt) -- 切换窗口工作目录
+map("n", "<F4>", ":noh<CR>", opt) -- 切换窗口工作目录
 
 -- Terminal相关
 -- map("n", "<leader>vt", ":sp | terminal<CR>", opt)
@@ -171,6 +172,8 @@ endfunc
 ]],
 	false
 )
+-- 查看文件夹
+--map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
 
 -- 插件快捷键
 
@@ -286,27 +289,27 @@ pluginKeys.telescopeList = {
 
 -- nvim-tree
 -- alt + m 键打开关闭tree
-map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
--- 列表快捷键
-pluginKeys.nvimTreeList = {
-	-- 打开文件或文件夹
-	{ key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
-	-- 分屏打开文件
-	{ key = "v", action = "vsplit" },
-	{ key = "h", action = "split" },
-	-- 显示隐藏文件
-	{ key = "i", action = "toggle_custom" }, -- 对应 filters 中的 custom (node_modules)
-	{ key = ".", action = "toggle_dotfiles" }, -- Hide (dotfiles)
-	-- 文件操作
-	{ key = "<F5>", action = "refresh" },
-	{ key = "a", action = "create" },
-	{ key = "d", action = "remove" },
-	{ key = "r", action = "rename" },
-	{ key = "x", action = "cut" },
-	{ key = "c", action = "copy" },
-	{ key = "p", action = "paste" },
-	{ key = "s", action = "system_open" },
-}
+--map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
+---- 列表快捷键
+--pluginKeys.nvimTreeList = {
+--	-- 打开文件或文件夹
+--	{ key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
+--	-- 分屏打开文件
+--	{ key = "v", action = "vsplit" },
+--	{ key = "h", action = "split" },
+--	-- 显示隐藏文件
+--	{ key = "i", action = "toggle_custom" }, -- 对应 filters 中的 custom (node_modules)
+--	{ key = ".", action = "toggle_dotfiles" }, -- Hide (dotfiles)
+--	-- 文件操作
+--	{ key = "<F5>", action = "refresh" },
+--	{ key = "a", action = "create" },
+--	{ key = "d", action = "remove" },
+--	{ key = "r", action = "rename" },
+--	{ key = "x", action = "cut" },
+--	{ key = "c", action = "copy" },
+--	{ key = "p", action = "paste" },
+--	{ key = "s", action = "system_open" },
+--}
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
 	local feedkey = function(key, mode)
