@@ -95,6 +95,8 @@ map("i", "<C-l>", "<ESC>ea", opt)
 map("i", "<C-k>", "<Up>", opt)
 map("i", "<C-j>", "<Down>", opt)
 
+
+
 -- buffer 跳转（现在有更好的了）
 map("n", "]b", ":bnext<CR>", opt)
 map("n", "[b", ":bprevious<CR>", opt)
@@ -114,7 +116,8 @@ map("n", "<Down>", "gj", opt)
 map("n", "<Up>", "gk", opt)
 
 -- 检查编译效果
-map("i", "<C-b>", "<ESC>a", opt)
+map("i", "<C-c>", "<ESC>", opt)   -- 防止C - c中断lsp服务器的输出
+-- map("i", "<C-b>", "<ESC>a", opt)
 
 -- 禁止shift上下键在插入模式下翻页
 vim.cmd([[
@@ -158,7 +161,7 @@ func! CompileRunGcc()
 		exec  " !gcc % -g   "
 		exec  " ! %:h/a.out < %:h/input"
 	elseif &filetype ==  'cpp'
-		exec  "!g++  -fsanitize=address % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
+		exec  "!g++  -fsanitize=address  % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
   "exec "!g++ % /home/skt1faker/my_procedure/opensource/leveldb/build/libleveldb.a  -I /home/skt1faker/my_procedure/opensource/leveldb/build/include -lpthread -g && %:h/a.out"
 	elseif &filetype ==  'java'  
 		exec  " !javac % "  
@@ -172,6 +175,10 @@ endfunc
 ]],
 	false
 )
+
+-- 查看符号表
+map("n", "<A-m>", ":SymbolsOutline<CR>", opt)
+
 -- 查看文件夹
 --map("n", "<A-m>", ":NvimTreeToggle<CR>", opt)
 

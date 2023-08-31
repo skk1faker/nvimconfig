@@ -46,7 +46,9 @@ packer.startup(function(use)
 	use({ "williamboman/mason.nvim" })
 	use({ "williamboman/mason-lspconfig.nvim" })
 	use({ "neovim/nvim-lspconfig" })
-
+  
+  -- symble 关键字列表
+  use 'simrat39/symbols-outline.nvim'
 	-- 补全引擎
 	use("hrsh7th/nvim-cmp")
 	-- snippet 引擎

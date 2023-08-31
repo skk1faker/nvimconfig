@@ -15,7 +15,7 @@ vim.wo.cursorline = true
 -- 显示左侧图标指示列
 vim.wo.signcolumn = "yes"
 -- 右侧参考线，超过表示代码太长了，考虑换行
-vim.wo.colorcolumn = "80"
+-- vim.wo.colorcolumn = "80"
 -- 缩进2个空格等于一个Tab
 vim.o.tabstop = 2
 vim.bo.tabstop = 2
@@ -102,6 +102,7 @@ vim.o.makeprg = "make"
 vim.o.guicursor = "i-ci-n-v-c-sm:block,ve:ver25,r-cr-o:hor20"
 --https://www.cnblogs.com/welkinwalker/archive/2011/05/30/2063587.html
 --～/document/vim折叠设置.pdf
+vim.wo.foldenable = false
 vim.o.foldmethod="syntax"
 --manual           手工定义折叠
 --indent             更多的缩进表示更高级别的折叠
@@ -119,6 +120,9 @@ vim.o.foldmethod="syntax"
 --zo 打开当前折叠
 --zd 删除折叠
 --zD 删除所有折叠
+
+-- 更改选中文本的背景颜色
+
 
 vim.cmd([[
 " 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
@@ -187,6 +191,9 @@ func SetTitle()
           call append(line(".")+10, "#include<bits/stdc++.h>")
           call append(line(".")+11, "using namespace std;")
           call append(line(".")+12, "#define ll long long")
+          call append(line(".")+13, "#define DEBUG0")
+          call append(line(".")+14, "const int mod1 = 1e9 + 7;")
+          call append(line(".")+15, "const int mod2 = 998244353;")
          endif
     endif
 endfunc

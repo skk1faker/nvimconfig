@@ -17,6 +17,7 @@ require("plugin-config.telescope")
 --:lua print(require("project_nvim.utils.path").historyfile) 就可以看到 project_history 文件的路径了
 require("plugin-config.nvim-treesitter")
 require("plugin-config.blameline")
+require("plugin-config.symbols-outline")
 require("plugin-config.winshift")
 require("plugin-config.markdown_preview")
 --require("plugin-config.todo") -- 编辑的时候另起一行然后<C-c>会报错
@@ -26,3 +27,5 @@ require("lsp.cmp")
 require("lsp.formatter")
 require("endsetting")
 vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})
+vim.cmd('highlight Visual ctermbg=Black ctermfg=White guibg=Black guifg=White')
+
