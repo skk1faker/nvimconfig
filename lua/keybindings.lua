@@ -56,8 +56,8 @@ map("n", "<F3>", ":Explore %:h <CR>", opt) -- 切换窗口工作目录
 map("n", "<F4>", ":noh<CR>", opt) -- 切换窗口工作目录
 
 -- Terminal相关
--- map("n", "<leader>vt", ":sp | terminal<CR>", opt)
--- map("n", "<leader>t", ":vsp | terminal<CR>", opt)
+map("n", "<leader>vy", ":vsp |vertical resize 50 | terminal<CR>", opt)
+map("n", "<leader>y", ":sp | resize 10 | terminal<CR>", opt)    -- resize可以修改窗口高度
 map("t", "<Esc>", "<C-\\><C-n>", opt)
 map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
 map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
@@ -161,7 +161,7 @@ func! CompileRunGcc()
 		exec  " !gcc % -g   "
 		exec  " ! %:h/a.out < %:h/input"
 	elseif &filetype ==  'cpp'
-		exec  "!g++  -fsanitize=address  % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
+    exec  "!g++ -fsanitize=address  % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
   "exec "!g++ % /home/skt1faker/my_procedure/opensource/leveldb/build/libleveldb.a  -I /home/skt1faker/my_procedure/opensource/leveldb/build/include -lpthread -g && %:h/a.out"
 	elseif &filetype ==  'java'  
 		exec  " !javac % "  
@@ -175,6 +175,7 @@ endfunc
 ]],
 	false
 )
+		--exec  "!g++ -fsanitize=address  % -g -pthread -lpthread -o %:h/a.out && time %:h/a.out < %:h/input"
 
 -- 查看符号表
 map("n", "<A-m>", ":SymbolsOutline<CR>", opt)
@@ -222,9 +223,10 @@ nmap <C-p> <Plug>MarkdownPreviewToggle
   ]])
 -- markdown img paste
 vim.cmd([[
-autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+let g:mdip_imgdir = expand('%:r')
+autocmd FileType markdown nmap <buffer><silent> <leader>p :let mdip_imgdir = expand('%:r') \| call mdip#MarkdownClipboardImage()<CR>
 " there are some defaults for image directory and image name, you can change them
-" let g:mdip_imgdir = 'img'
+" let g:mdip_imgdir = expand('%:r')
 " let g:mdip_imgname = 'image'
 ]])
 

@@ -31,11 +31,11 @@ packer.startup(function(use)
 	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use("arkav/lualine-lsp-progress")
 	-- telescope （新增）
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    -- or                            , branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+--  use {
+--    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+--    -- or                            , branch = '0.1.x',
+--    requires = { {'nvim-lua/plenary.nvim'} }
+--  }
 	-- dashboard-nvim (新增)
 	-- use("glepnir/dashboard-nvim")
 	-- project
@@ -141,21 +141,23 @@ packer.startup(function(use)
 	--	})
 	use("img-paste-devs/img-paste.vim")
 	use("voldikss/vim-translator")
+  -- 按键音效
+  -- use('skywind3000/vim-keysound')
 
 	-- Packer
-	use({
-		"jackMort/ChatGPT.nvim",
-		config = function()
-			require("chatgpt").setup({
-				-- optional configuration
-			})
-		end,
-		requires = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-	})
+--	use({
+--		"jackMort/ChatGPT.nvim",
+--		config = function()
+--			require("chatgpt").setup({
+--				-- optional configuration
+--			})
+--		end,
+--		requires = {
+--			"MunifTanjim/nui.nvim",
+--			"nvim-lua/plenary.nvim",
+--			"nvim-telescope/telescope.nvim",
+--		},
+--	})
 end)
 
 -- 每次保存 plugins.lua 自动安装插件
